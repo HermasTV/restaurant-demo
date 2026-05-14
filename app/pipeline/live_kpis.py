@@ -8,8 +8,9 @@ this module:
     cover the frame, so there is no "unknown" fallback,
   * keeps a per-tracklet, per-zone dwell timer,
   * runs a "customer-not-served" state machine that raises a flag when one or
-    more customers are waiting and no worker is in any worker zone for more
-    than `kpis.customer_not_served_threshold_s` seconds,
+    more customers are AT THE COUNTER (counter-kind zone) and no worker is
+    in any worker zone for more than `kpis.customer_not_served_threshold_s`
+    seconds — customers in queue don't trigger,
   * draws zone overlays, role-colored boxes + labels, and a top-left HUD,
   * returns a stats dict (workers_now, customers_now, completed_visits,
     longest_dwell_s, not_served_active, not_served_events, …).
@@ -213,13 +214,15 @@ class LiveKpiOverlay:
 
         # ---- 4a) Per-frame serving / waiting split.
         # A customer is "serving" if currently inside a counter-kind zone,
-        # "waiting" if inside a queue-kind zone, "in_zone" if inside any
-        # customer zone (used for the not-served check). For cameras with no
-        # customer zones (CAM-02 pre-annotation), fall back to "anyone outside
-        # the worker zone counts as waiting".
+        # "waiting" if inside a queue-kind zone. Only the counter count
+        # drives the not-served check — being in queue without a worker
+        # around is normal foot traffic; being AT the counter without a
+        # worker around is the actual problem.
+        # Fallback: cameras with worker zones but no customer zones yet
+        # (early annotation) treat anyone outside the worker zone as
+        # waiting AND as not-served, so the timer still fires.
         serving_now = 0
         waiting_now = 0
-        customers_in_zone_now = 0  # in any customer zone
         for t in tracks:
             tid = int(t["id"])
             if roles[tid] != "customer":
@@ -230,32 +233,38 @@ class LiveKpiOverlay:
                 serving_now += 1
             if "queue" in kinds:
                 waiting_now += 1
-            if zones_in:
-                customers_in_zone_now += 1
-            elif not self._customer_zones and not track_in_worker_zone.get(tid, False):
-                # CAM-02-style fallback: no customer zones defined yet.
+            if (
+                not zones_in
+                and not self._customer_zones
+                and not track_in_worker_zone.get(tid, False)
+            ):
+                # Pre-annotation fallback path.
                 waiting_now += 1
-                customers_in_zone_now += 1
 
         # ---- 4b) Customer-not-served state machine.
         # "Worker present" = any track currently inside any worker zone
         # (regardless of classified role — being there is enough).
         worker_present = any(track_in_worker_zone.get(int(t["id"]), False)
                              for t in tracks)
-        customers_waiting_now = customers_in_zone_now
+        # Trigger is "customer at counter, no worker around". On a camera
+        # that has worker zones but no customer-counter zone (pre-annotation)
+        # we fall back to `waiting_now` so the KPI still works.
+        customers_unattended_now = (
+            serving_now if self._has_counter_zones else waiting_now
+        )
 
         ns_pending_seconds = 0.0
         # Customer-not-served only makes sense when the camera defines worker
         # zones (CAM-01, CAM-02). Skip on CAM-03 (dining) / CAM-04 (kitchen),
         # which use a default-role override and have no service concept.
         ns_applicable = bool(self._worker_zones)
-        if ns_applicable and customers_waiting_now > 0 and not worker_present:
+        if ns_applicable and customers_unattended_now > 0 and not worker_present:
             if self._ns_start_frame is None:
                 self._ns_start_frame = frame_idx
-                self._ns_max_customers = customers_waiting_now
+                self._ns_max_customers = customers_unattended_now
             else:
                 self._ns_max_customers = max(
-                    self._ns_max_customers, customers_waiting_now
+                    self._ns_max_customers, customers_unattended_now
                 )
             ns_pending_seconds = (frame_idx - self._ns_start_frame) / self.fps
             if not self._ns_active and ns_pending_seconds >= self._not_served_threshold_s:
@@ -317,7 +326,7 @@ class LiveKpiOverlay:
             "customers_now": customers_now,
             "serving_now": serving_now,
             "waiting_now": waiting_now,
-            "customers_waiting": customers_waiting_now,
+            "customers_unattended": customers_unattended_now,
             "avg_serve_s": avg_serve_s,
             "avg_wait_s": avg_wait_s,
             "track_zone_dwell": dict(track_zone_dwell),

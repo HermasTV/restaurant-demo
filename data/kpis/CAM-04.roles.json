@@ -1,0 +1,68 @@
+{
+  "cam_id": "CAM-04",
+  "tracks": {
+    "11": {
+      "role": "worker",
+      "frames_total": 597,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "13": {
+      "role": "worker",
+      "frames_total": 115,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "17": {
+      "role": "worker",
+      "frames_total": 9,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "31": {
+      "role": "worker",
+      "frames_total": 261,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "40": {
+      "role": "worker",
+      "frames_total": 210,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "42": {
+      "role": "worker",
+      "frames_total": 67,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "44": {
+      "role": "worker",
+      "frames_total": 103,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "51": {
+      "role": "worker",
+      "frames_total": 50,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "57": {
+      "role": "worker",
+      "frames_total": 15,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    }
+  }
+}

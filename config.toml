@@ -133,18 +133,23 @@ conf       = 0.10
 half       = false
 # Sample every Nth frame (10 fps source / 2 → 5 fps detector).
 every_n    = 2
-# Cameras to apply the PPE pass to. CAM-01 is gated to worker zones;
-# CAM-04 has default_role=worker so the whole frame counts.
-cameras    = ["CAM-01", "CAM-04"]
+# Cameras to apply the PPE pass to. Kitchen only — gloves / hairnets
+# elsewhere are noise (customers, staff in plain clothes outside food
+# prep). CAM-04 has default_role=worker so the whole frame counts.
+cameras    = ["CAM-04"]
 
 
 [kpis]
 min_dwell_s          = 3.0
 reenter_tolerance_s  = 1.0
-# Customer-not-served: when ≥1 customer is in a customer area (or, on cameras
-# with worker zones only, anywhere outside the worker zone) AND no worker is
-# currently inside any worker zone, count the seconds of unattended state.
-# Once the count exceeds this threshold, raise the "customer not served" flag.
+# Customer-not-served: when ≥1 customer is in a counter-kind zone
+# (e.g. customer_counter) AND no worker is currently inside any worker
+# zone, count the seconds of unattended state. Queueing customers don't
+# trigger — being in queue without a worker present is normal foot
+# traffic; being AT the counter without a worker is the actual problem.
+# Once the count exceeds this threshold the "customer not served" flag
+# fires. Only applicable on cameras with both worker and counter zones
+# (CAM-01, CAM-02).
 customer_not_served_threshold_s = 20.0
 # Zone-name prefixes that mark a worker zone. Anything else (customer_*,
 # etc.) is treated as a customer zone. The annotation tab only offers

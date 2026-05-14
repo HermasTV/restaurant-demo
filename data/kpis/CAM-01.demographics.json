@@ -1,53 +1,53 @@
 {
   "cam_id": "CAM-01",
   "tracks": {
-    "1": {
+    "9": {
       "age_band": "30-50",
       "gender": "M",
-      "confidence": 0.974,
+      "confidence": 0.917,
       "n_observations": 10,
       "first_seen_s": 0.0,
-      "last_seen_s": 8.69
+      "last_seen_s": 7.5
     },
-    "4": {
+    "11": {
       "age_band": "30-50",
       "gender": "M",
-      "confidence": 0.944,
+      "confidence": 0.866,
       "n_observations": 10,
       "first_seen_s": 0.0,
-      "last_seen_s": 8.79
+      "last_seen_s": 7.5
+    },
+    "85": {
+      "age_band": "30-50",
+      "gender": "M",
+      "confidence": 0.939,
+      "n_observations": 10,
+      "first_seen_s": 171.49,
+      "last_seen_s": 220.05
     },
     "87": {
       "age_band": "30-50",
       "gender": "M",
-      "confidence": 0.976,
-      "n_observations": 10,
-      "first_seen_s": 108.83,
-      "last_seen_s": 212.46
-    },
-    "109": {
-      "age_band": "30-50",
-      "gender": "M",
-      "confidence": 0.974,
-      "n_observations": 10,
-      "first_seen_s": 171.69,
-      "last_seen_s": 218.36
-    },
-    "110": {
-      "age_band": "30-50",
-      "gender": "M",
-      "confidence": 0.983,
+      "confidence": 0.938,
       "n_observations": 10,
       "first_seen_s": 172.49,
-      "last_seen_s": 189.48
+      "last_seen_s": 186.28
     },
-    "145": {
+    "100": {
       "age_band": "30-50",
       "gender": "M",
-      "confidence": 0.924,
+      "confidence": 0.884,
       "n_observations": 10,
-      "first_seen_s": 233.65,
-      "last_seen_s": 244.64
+      "first_seen_s": 203.37,
+      "last_seen_s": 238.74
+    },
+    "112": {
+      "age_band": "30-50",
+      "gender": "M",
+      "confidence": 0.92,
+      "n_observations": 10,
+      "first_seen_s": 233.75,
+      "last_seen_s": 244.74
     }
   },
   "summary": {
@@ -58,6 +58,6 @@
       "M": 6
     },
     "finalized": 6,
-    "pending": 7
+    "pending": 17
   }
 }

@@ -17,15 +17,15 @@ footage (noted below), the rest are covered by this POC.
 | # | KPI | Status | Notes |
 |---|---|---|---|
 | 1 | Queue build-up / crowd congestion | ✅ | Per-zone counts via polygon zones + role classifier. |
-| 2 | Kitchen hygiene compliance | ✅ | Worker-zone gating on CAM-01; whole-frame on CAM-04. |
+| 2 | Kitchen hygiene compliance | ✅ | PPE pass runs on CAM-04 (kitchen) only — gloves / hairnets elsewhere are noise. |
 | 3 | Cash counter open – no customer | ❌ | Drawer never opened across the supplied clips. |
 | 4 | Cash counter open – extended duration | ❌ | Same reason as #3. |
 | 5 | Handwashing duration (20 s) | ❌ | No view of a sink / handwash station provided. |
 | 6 | Customer served – receipt not printed | ⚠ | Needs POS integration (out of scope). |
 | 7 | Receipt printed – no customer | ⚠ | Same. |
-| 8 | Gloves compliance | ✅ | YOLOE visual-prompt detector, kitchen + worker zones only. |
+| 8 | Gloves compliance | ✅ | YOLOE visual-prompt detector, kitchen camera only. |
 | 9 | Hairnet compliance | ✅ | Same YOLOE pass; second cached class. |
-| 10 | Unattended customer | ✅ | "Customer-not-served" timer on CAM-01 / CAM-02. Custom verification script added because no clip naturally showed an unattended customer. |
+| 10 | Unattended customer | ✅ | "Customer-not-served" timer on CAM-01 / CAM-02. Fires when ≥1 customer is in `customer_counter` AND no worker is in `worker_area` for > threshold seconds. Queueing customers don't trigger. Custom verification script added because no clip naturally showed an unattended customer. |
 | 11 | Customer demographics | ✅ | MiVOLO-D1 (face + body), per-track aggregation, age band + gender, privacy-preserving (no identity stored). |
 | 12 | Occupancy heatmap | ✅ | Foot-point accumulator, Gaussian-smoothed, overlaid on reference frame. |
 | 13 | Customer dwell time | ✅ | Per-zone, wall-clock based so FPS / inference latency doesn't skew the result. |
@@ -258,10 +258,12 @@ foundation every downstream KPI sits on.
   Computed per region so different zones can carry independent dwell
   semantics.
 - **Unattended customer**: state machine in `live_kpis.py` that counts
-  seconds while there's a customer in a customer zone AND no worker is
-  in any worker zone. Trips at `customer_not_served_threshold_s`
-  (default 20 s). Only meaningful on cameras with both zone types
-  (CAM-01, CAM-02) — skipped elsewhere.
+  seconds while there's a customer **at the counter** (counter-kind
+  zone, e.g. `customer_counter`) AND no worker is in any worker zone.
+  Customers in queue don't trigger — queueing without a worker present
+  is normal foot traffic. Trips at `customer_not_served_threshold_s`
+  (default 20 s). Only meaningful on cameras with both worker and
+  counter zones (CAM-01, CAM-02).
 - **Demographics**: MiVOLO-D1 on customer tracks only. Per-track
   sampling at `sample_gap_frames` (default 10 = 1 reading / sec at
   10 fps), finalized after `min_confident_frames` matched observations
@@ -270,10 +272,10 @@ foundation every downstream KPI sits on.
 - **PPE (gloves + hairnet)**: YOLOE with a tiny visual prompt cache
   built from manually-selected crops (see
   `experiments/yoloe_select_prompts.py`). The cache is the single .pt
-  file `data/weights/yoloe_vpe_kitchen.pt`. CAM-01 is gated to the
-  `worker_area` polygon (no point flagging gloves on a customer);
-  CAM-04 is unrestricted because `default_role = "worker"` for the
-  whole frame.
+  file `data/weights/yoloe_vpe_kitchen.pt`. Runs on CAM-04 (kitchen)
+  only — gloves / hairnets on the FOH cameras are noise (customers in
+  street clothes, staff outside food-prep) and were dropped from the
+  pipeline.
 - **Occupancy heatmap**: bottom-center foot-points of customer tracks
   accumulated into a float32 grid, Gaussian-smoothed, colormap-overlaid
   on the camera's reference frame.
@@ -317,10 +319,10 @@ The `ppe` field is only populated on the cadence set by
 
 | Slot   | Camera       | Candidate KPIs                                       |
 |--------|--------------|------------------------------------------------------|
-| CAM-01 | Billing      | Queue · Unattended customer · PPE (workers area)     |
-| CAM-02 | Counter      | Queue · Unattended customer · Dwell                  |
-| CAM-03 | Dining       | Occupancy · Heatmap · Dwell · Demographics           |
-| CAM-04 | Kitchen      | Gloves · Hairnet · PPE (whole frame, default=worker) |
+| CAM-01 | Billing      | Queue · Unattended customer (at counter) · Demographics |
+| CAM-02 | Counter      | Queue · Unattended customer (at counter) · Dwell        |
+| CAM-03 | Dining       | Occupancy · Heatmap · Dwell                             |
+| CAM-04 | Kitchen      | Gloves · Hairnet (PPE, whole frame, default=worker)     |
 
 ---
 

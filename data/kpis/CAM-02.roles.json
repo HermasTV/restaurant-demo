@@ -1,0 +1,119 @@
+{
+  "cam_id": "CAM-02",
+  "tracks": {
+    "5": {
+      "role": "worker",
+      "frames_total": 1617,
+      "frames_in_worker": 1617,
+      "frames_in_customer": 0
+    },
+    "6": {
+      "role": "customer",
+      "frames_total": 176,
+      "frames_in_worker": 0,
+      "frames_in_customer": 174
+    },
+    "28": {
+      "role": "customer",
+      "frames_total": 2675,
+      "frames_in_worker": 0,
+      "frames_in_customer": 2594
+    },
+    "29": {
+      "role": "worker",
+      "frames_total": 157,
+      "frames_in_worker": 157,
+      "frames_in_customer": 0
+    },
+    "32": {
+      "role": "customer",
+      "frames_total": 798,
+      "frames_in_worker": 0,
+      "frames_in_customer": 795
+    },
+    "33": {
+      "role": "worker",
+      "frames_total": 33,
+      "frames_in_worker": 33,
+      "frames_in_customer": 0
+    },
+    "68": {
+      "role": "customer",
+      "frames_total": 11,
+      "frames_in_worker": 0,
+      "frames_in_customer": 11
+    },
+    "69": {
+      "role": "customer",
+      "frames_total": 69,
+      "frames_in_worker": 0,
+      "frames_in_customer": 69
+    },
+    "70": {
+      "role": "customer",
+      "frames_total": 30,
+      "frames_in_worker": 0,
+      "frames_in_customer": 30
+    },
+    "74": {
+      "role": "customer",
+      "frames_total": 1541,
+      "frames_in_worker": 0,
+      "frames_in_customer": 1496
+    },
+    "75": {
+      "role": "customer",
+      "frames_total": 113,
+      "frames_in_worker": 0,
+      "frames_in_customer": 113
+    },
+    "77": {
+      "role": "customer",
+      "frames_total": 6,
+      "frames_in_worker": 0,
+      "frames_in_customer": 1
+    },
+    "84": {
+      "role": "customer",
+      "frames_total": 721,
+      "frames_in_worker": 0,
+      "frames_in_customer": 717
+    },
+    "100": {
+      "role": "worker",
+      "frames_total": 13,
+      "frames_in_worker": 13,
+      "frames_in_customer": 0
+    },
+    "112": {
+      "role": "worker",
+      "frames_total": 29,
+      "frames_in_worker": 29,
+      "frames_in_customer": 0
+    },
+    "115": {
+      "role": "worker",
+      "frames_total": 116,
+      "frames_in_worker": 116,
+      "frames_in_customer": 0
+    },
+    "121": {
+      "role": "customer",
+      "frames_total": 366,
+      "frames_in_worker": 0,
+      "frames_in_customer": 366
+    },
+    "122": {
+      "role": "worker",
+      "frames_total": 12,
+      "frames_in_worker": 12,
+      "frames_in_customer": 0
+    },
+    "137": {
+      "role": "customer",
+      "frames_total": 31,
+      "frames_in_worker": 0,
+      "frames_in_customer": 31
+    }
+  }
+}
