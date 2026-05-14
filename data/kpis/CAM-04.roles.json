@@ -8,7 +8,7 @@
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "13": {
+    "14": {
       "role": "worker",
       "frames_total": 115,
       "frames_in_worker": 0,
@@ -43,21 +43,21 @@
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "44": {
+    "47": {
       "role": "worker",
       "frames_total": 103,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "51": {
+    "54": {
       "role": "worker",
       "frames_total": 50,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "57": {
+    "60": {
       "role": "worker",
       "frames_total": 15,
       "frames_in_worker": 0,

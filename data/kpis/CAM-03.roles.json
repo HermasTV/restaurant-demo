@@ -29,7 +29,7 @@
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "12": {
+    "13": {
       "role": "customer",
       "frames_total": 3041,
       "frames_in_worker": 0,
@@ -57,14 +57,14 @@
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "25": {
+    "24": {
       "role": "customer",
       "frames_total": 55,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "36": {
+    "39": {
       "role": "customer",
       "frames_total": 169,
       "frames_in_worker": 0,
@@ -78,163 +78,156 @@
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "45": {
+    "48": {
       "role": "customer",
       "frames_total": 478,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "48": {
+    "49": {
       "role": "customer",
       "frames_total": 553,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "49": {
+    "55": {
       "role": "customer",
       "frames_total": 139,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "50": {
+    "56": {
       "role": "customer",
       "frames_total": 369,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "60": {
+    "61": {
       "role": "customer",
       "frames_total": 2347,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "61": {
+    "65": {
       "role": "customer",
       "frames_total": 16,
-      "frames_in_worker": 0,
-      "frames_in_customer": 0,
-      "source": "camera_default"
-    },
-    "62": {
-      "role": "customer",
-      "frames_total": 141,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
     "66": {
       "role": "customer",
+      "frames_total": 141,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "67": {
+      "role": "customer",
       "frames_total": 28,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "71": {
+    "72": {
       "role": "customer",
       "frames_total": 18,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "73": {
+    "74": {
       "role": "customer",
       "frames_total": 10,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "85": {
+    "88": {
       "role": "customer",
       "frames_total": 887,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "86": {
+    "89": {
       "role": "customer",
       "frames_total": 31,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "89": {
+    "92": {
       "role": "customer",
       "frames_total": 7,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "92": {
+    "96": {
       "role": "customer",
       "frames_total": 149,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "93": {
+    "97": {
       "role": "customer",
       "frames_total": 12,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "97": {
+    "101": {
       "role": "customer",
       "frames_total": 59,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "98": {
+    "103": {
       "role": "customer",
       "frames_total": 100,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "101": {
+    "104": {
       "role": "customer",
       "frames_total": 436,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "102": {
+    "105": {
       "role": "customer",
       "frames_total": 838,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "103": {
+    "106": {
       "role": "customer",
       "frames_total": 6,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "104": {
+    "107": {
       "role": "customer",
       "frames_total": 3,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "109": {
+    "110": {
       "role": "customer",
       "frames_total": 205,
-      "frames_in_worker": 0,
-      "frames_in_customer": 0,
-      "source": "camera_default"
-    },
-    "111": {
-      "role": "customer",
-      "frames_total": 16,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
@@ -246,70 +239,77 @@
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "125": {
+    "117": {
       "role": "customer",
-      "frames_total": 22,
-      "frames_in_worker": 0,
-      "frames_in_customer": 0,
-      "source": "camera_default"
-    },
-    "126": {
-      "role": "customer",
-      "frames_total": 32,
+      "frames_total": 16,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
     "127": {
       "role": "customer",
-      "frames_total": 36,
+      "frames_total": 22,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "128": {
+      "role": "customer",
+      "frames_total": 32,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
     "129": {
       "role": "customer",
-      "frames_total": 9,
-      "frames_in_worker": 0,
-      "frames_in_customer": 0,
-      "source": "camera_default"
-    },
-    "130": {
-      "role": "customer",
-      "frames_total": 31,
+      "frames_total": 36,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
     "131": {
       "role": "customer",
-      "frames_total": 14,
+      "frames_total": 9,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
     "132": {
       "role": "customer",
-      "frames_total": 29,
+      "frames_total": 31,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
     "133": {
       "role": "customer",
-      "frames_total": 21,
+      "frames_total": 14,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "134": {
+      "role": "customer",
+      "frames_total": 29,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
     "135": {
       "role": "customer",
+      "frames_total": 21,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "137": {
+      "role": "customer",
       "frames_total": 116,
       "frames_in_worker": 0,
       "frames_in_customer": 0,
       "source": "camera_default"
     },
-    "136": {
+    "138": {
       "role": "customer",
       "frames_total": 1,
       "frames_in_worker": 0,

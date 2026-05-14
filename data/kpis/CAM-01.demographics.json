@@ -1,7 +1,7 @@
 {
   "cam_id": "CAM-01",
   "tracks": {
-    "9": {
+    "2": {
       "age_band": "30-50",
       "gender": "M",
       "confidence": 0.917,
@@ -9,7 +9,7 @@
       "first_seen_s": 0.0,
       "last_seen_s": 7.5
     },
-    "11": {
+    "4": {
       "age_band": "30-50",
       "gender": "M",
       "confidence": 0.866,
@@ -17,12 +17,12 @@
       "first_seen_s": 0.0,
       "last_seen_s": 7.5
     },
-    "85": {
+    "84": {
       "age_band": "30-50",
       "gender": "M",
       "confidence": 0.939,
       "n_observations": 10,
-      "first_seen_s": 171.49,
+      "first_seen_s": 171.59,
       "last_seen_s": 220.05
     },
     "87": {
@@ -36,7 +36,7 @@
     "100": {
       "age_band": "30-50",
       "gender": "M",
-      "confidence": 0.884,
+      "confidence": 0.902,
       "n_observations": 10,
       "first_seen_s": 203.37,
       "last_seen_s": 238.74

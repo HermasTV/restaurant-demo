@@ -320,6 +320,15 @@ class LiveKpiOverlay:
         if self._ns_active:
             self._draw_alert_banner(frame_bgr, ns_pending_seconds)
 
+        # Tracks with positive customer-zone evidence (c > 0). Demographics
+        # sampling uses this — *not* the role label — so that workers caught
+        # in the first frames before reaching `worker_area` (still default to
+        # `customer` under the no-"unknown" partition) aren't mis-sampled.
+        customers_with_evidence = {
+            int(t["id"]) for t in tracks
+            if self._role_counts.get(int(t["id"]), {}).get("customer", 0) > 0
+        }
+
         return {
             "ts_s": ts_s,
             "workers_now": workers_now,
@@ -327,6 +336,7 @@ class LiveKpiOverlay:
             "serving_now": serving_now,
             "waiting_now": waiting_now,
             "customers_unattended": customers_unattended_now,
+            "customers_with_evidence": customers_with_evidence,
             "avg_serve_s": avg_serve_s,
             "avg_wait_s": avg_wait_s,
             "track_zone_dwell": dict(track_zone_dwell),

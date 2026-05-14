@@ -5,7 +5,7 @@
     "mean_s": 21.09,
     "median_s": 10.5,
     "p95_s": 99.68,
-    "max_s": 126.58
+    "max_s": 126.78
   },
   "records": [
     {
@@ -39,7 +39,7 @@
       "duration_s": 33.19
     },
     {
-      "track_id": 32,
+      "track_id": 33,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 246,
@@ -49,7 +49,7 @@
       "duration_s": 10.5
     },
     {
-      "track_id": 32,
+      "track_id": 33,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 488,
@@ -69,7 +69,7 @@
       "duration_s": 3.5
     },
     {
-      "track_id": 32,
+      "track_id": 33,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 562,
@@ -129,7 +129,7 @@
       "duration_s": 24.6
     },
     {
-      "track_id": 32,
+      "track_id": 33,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 1173,
@@ -139,7 +139,7 @@
       "duration_s": 3.5
     },
     {
-      "track_id": 69,
+      "track_id": 70,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 1281,
@@ -149,7 +149,7 @@
       "duration_s": 6.9
     },
     {
-      "track_id": 74,
+      "track_id": 75,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 1351,
@@ -159,7 +159,7 @@
       "duration_s": 5.7
     },
     {
-      "track_id": 75,
+      "track_id": 76,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 1377,
@@ -173,20 +173,20 @@
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 1419,
-      "exit_frame": 1541,
+      "exit_frame": 1542,
       "enter_ts_s": 141.874,
-      "exit_ts_s": 154.072,
-      "duration_s": 11.2
+      "exit_ts_s": 154.172,
+      "duration_s": 11.3
     },
     {
-      "track_id": 74,
+      "track_id": 75,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 1467,
       "exit_frame": 1561,
       "enter_ts_s": 146.673,
       "exit_ts_s": 156.071,
-      "duration_s": 8.6
+      "duration_s": 8.5
     },
     {
       "track_id": 28,
@@ -199,7 +199,7 @@
       "duration_s": 17.1
     },
     {
-      "track_id": 74,
+      "track_id": 75,
       "role": "customer",
       "zone": "customer_counter",
       "enter_frame": 1568,
@@ -209,7 +209,7 @@
       "duration_s": 6.5
     },
     {
-      "track_id": 84,
+      "track_id": 85,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 1754,
@@ -219,14 +219,14 @@
       "duration_s": 65.49
     },
     {
-      "track_id": 74,
+      "track_id": 75,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 1762,
       "exit_frame": 3049,
       "enter_ts_s": 176.168,
       "exit_ts_s": 304.844,
-      "duration_s": 126.58
+      "duration_s": 126.78
     },
     {
       "track_id": 28,
@@ -259,7 +259,7 @@
       "duration_s": 99.68
     },
     {
-      "track_id": 84,
+      "track_id": 85,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 2456,
@@ -269,7 +269,7 @@
       "duration_s": 4.0
     },
     {
-      "track_id": 121,
+      "track_id": 124,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 2557,
@@ -279,7 +279,7 @@
       "duration_s": 11.7
     },
     {
-      "track_id": 121,
+      "track_id": 124,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 2710,
@@ -289,7 +289,7 @@
       "duration_s": 24.9
     },
     {
-      "track_id": 137,
+      "track_id": 139,
       "role": "customer",
       "zone": "customer_queue",
       "enter_frame": 2965,

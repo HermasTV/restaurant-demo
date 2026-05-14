@@ -127,15 +127,24 @@ def run_worker(
                 # happens here too; the frame is consumed by writer.write
                 # below.
                 roles: dict[int, str] = {}
+                customers_with_evidence: set[int] = set()
                 if kpi_overlay is not None:
                     stats = kpi_overlay.step(frame, frame_idx, tracks)
                     roles = stats.get("roles", {})
+                    customers_with_evidence = stats.get(
+                        "customers_with_evidence", set()
+                    )
 
-                # Demographics: restrict to customer-role tracks only — workers
-                # are never sampled for age/gender. If we don't yet have a
-                # role (kpi_overlay missing) we skip rather than sampling all.
+                # Demographics: restrict to customer-role tracks with
+                # *positive* customer-zone evidence — `role == "customer"`
+                # alone is the default fallback (no "unknown" bucket) and
+                # would include workers caught in their first frames before
+                # reaching `worker_area`. Sampling those locks them in as
+                # male customers at ~10 s.
                 customer_tracks = [
-                    t for t in tracks if roles.get(int(t["id"])) == "customer"
+                    t for t in tracks
+                    if roles.get(int(t["id"])) == "customer"
+                    and int(t["id"]) in customers_with_evidence
                 ]
                 if (
                     demographics is not None and demographics_agg is not None
