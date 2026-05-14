@@ -160,10 +160,7 @@ def _load_config(path: Path = CONFIG_PATH) -> Config:
             customer_not_served_threshold_s=float(
                 kp.get("customer_not_served_threshold_s", 20.0)
             ),
-            worker_zone_prefixes=tuple(kp.get(
-                "worker_zone_prefixes",
-                ["employee-", "employee_", "worker_", "staff_"],
-            )),
+            worker_zone_prefixes=tuple(kp.get("worker_zone_prefixes", ["worker_"])),
             camera_default_role=dict(kp.get("camera_default_role", {})),
         ),
     )

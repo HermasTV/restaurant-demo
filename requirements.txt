@@ -1,0 +1,10 @@
+streamlit>=1.39
+streamlit-drawable-canvas>=0.9.3
+opencv-python-headless>=4.10
+numpy>=1.26
+pillow>=10
+httpx
+# Detection / tracking pipeline
+ultralytics>=8.3.0
+supervision>=0.25.0
+torch>=2.4.0

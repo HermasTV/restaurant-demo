@@ -21,7 +21,7 @@ if str(_PROJECT_ROOT) not in sys.path:
 from app.utils.cameras import CAMERAS, DATA_DIR, camera_by_id  # noqa: E402
 from app.config import CONFIG  # noqa: E402
 from app.pipeline.demographics import DemographicsClassifier  # noqa: E402
-from app.pipeline.model import PersonDetector  # noqa: E402
+from app.pipeline.model import BatchedPersonDetector  # noqa: E402
 from app.pipeline.ppe import PPEDetector  # noqa: E402
 from app.pipeline.worker import run_worker  # noqa: E402
 
@@ -57,9 +57,17 @@ def main() -> None:
     )
     print(f"running on  {[c.cam_id for c in cams]}")
 
-    detector = PersonDetector()
-    print("person detector ready")
+    # Single detector shared across all workers, but calls are batched:
+    # the dispatcher coalesces concurrent infer() requests from each
+    # stream into one model.predict([f1, f2, f3, f4]) — far cheaper on
+    # the GPU than four serialised single-frame calls (a batch of 4 at
+    # 640x384 ≈ 1.5–2× a single forward pass, not 4×).
+    detector = BatchedPersonDetector(max_batch_size=max(1, len(cams)))
+    print(f"person detector ready  (batched, max_batch={max(1, len(cams))})")
 
+    # PPE and demographics remain shared: each runs on at most 1-2 cameras,
+    # so contention is negligible and the loaders are heavy (YOLOE backbone,
+    # MiVOLO + internal YOLOv8x).
     ppe_detector: PPEDetector | None = None
     needs_ppe = (
         CONFIG.ppe.enabled
@@ -107,6 +115,7 @@ def main() -> None:
 
     for t in threads:
         t.join()
+    detector.shutdown()
     print("all workers finished.")
 
 

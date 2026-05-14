@@ -1,0 +1,97 @@
+
+1- Queue build-up / crowd congestion
+    Detect when too many people are queued at the counter or congregating in an area.
+2- Kitchen hygiene compliance
+    Monitor kitchen zones for hygiene-related events.
+3- Cash counter open – no customer present
+    Cash drawer is open while no customer is at the counter.
+4- Cash counter open – extended duration
+    Cash drawer remains open longer than a configured threshold.
+5- Handwashing duration (20 seconds)
+    Verify staff wash hands for at least 20 seconds at designated sinks.
+6- Customer present – receipt not printed
+    Customer is being served but no receipt is printed (POS integration).
+7- Receipt printed – no customer present
+    Receipt is printed when no customer is at the counter.
+8- Gloves compliance
+    Detect whether staff are wearing gloves in mandated zones.
+9- Hairnet compliance
+    Detect whether staff are wearing hairnets in mandated zones.
+10- Unattended customer
+    Customer is waiting but no staff is attending within X seconds.
+11- Customer demographics
+    Estimate aggregate age band / gender (privacy-preserving, no identity stored).
+12- Occupancy heat map
+    Aggregated heat map showing where customers spend time.
+13- Customer dwell time
+    Per-zone time spent by customers (queue, table, counter).
+
+
+Notes: 
+- Cash counter open – no customer present : No reference video of couter open it was always closed across the video
+- Cash counter open – extended duration : same previous reason. 
+- Handwashing duration (20 seconds): No video provided for the area of cleaning hands. 
+- Need to devide camera to queue area ( behind) and counter area (ordering)
+
+
+project structure : 
+
+[Create the project structure here] 
+
+
+Technical implementation for demo : 
+
+- as a starting point since most of the KPIs is Person dependant,
+we needed to have a detection and tracking models. 
+
+since we need a quick win for this demo, I've started investigating the latest benchamrk Yolo models and I 
+FOund that Yolo26 is the one to go to switching between different sizes for performance vs speed tradeoff. and I chose to mode forward with [Put the final detection model used ]
+then for tracking the benchamrk for real time tracking is still botosrt that I used in multiple tracking projects. 
+The BOTSort provides motion wise tracking and addition for a REID module to solve occlution, and since there are multiple occlusions incidents happens in the scenes. 
+I went for botsort with reid used [write the reid model used.]
+
+this set the starting point for most of the KPIs.
+
+Setup of the scenees : 
+- developed a quick streamlit UI as a dashboard that includes tab for streams visuialization,
+Tab for kicking of the systemand provide live analytics (which will be machine dependant ) since UI add more processing time for pipeline. 
+
+
+
+Benchamrk : 
+    For the sake of time I was not able to manually verify the results 
+    But at least there was 0 ID switch. 
+
+    demographic KPI : 
+        - 
+    
+
+
+ Opservations and Assumptions: 
+- Only 4 camera views were provided from Total of 9 views so some of the KPIs wont be applicable.
+- No video view for sanitization location. 
+- No video included people washing hands. 
+- No view showed customer being un served : [Added custom script to validate this point]
+- No drawer was opened through the videos. 
+
+
+
+
+
+for dwell time, used system time based as its pipeline independant and the FPS, processing time will not affect calculating the time. 
+- separated the processing of time calculating by region so for the 
+
+
+Future work and optimization: 
+    - Inference : 
+        currently we are using torch and onnx models in iference[verify if correct], and we are processing the 4 streams using threading only for now. 
+        - but next we can speed the processing time by doing few things  
+        delploy models into tensorrt --> host these models on a triton server to make use of nvidia GPU optimization and parralizm cabability. 
+        - the video streams using normal opencv add a headache in processing time, using Gstreamer. 
+        - some code level modifications such as Person level features (gloves,hairnet, Age, Gender, etc) can be later on replaced using a single multi-class object detector model 
+             that will reduce inference time by third at least.
+
+
+    Architecture : 
+        - instead using a streamlit python server, We can build a separate webserver [NextJS] hosted on different machine which will handle the UI and visualization as it will add extra headache. 
+- 

@@ -23,12 +23,12 @@ class Region:
 
 CAMERA_REGIONS: dict[str, list[Region]] = {
     "CAM-01": [
-        Region("workers_area",     "Workers Area",     True),
+        Region("worker_area",      "Worker Area",      True),
         Region("customer_counter", "Customer Counter", False),
         Region("customer_queue",   "Customer Queue",   False),
     ],
     "CAM-02": [
-        Region("workers_area",     "Workers Area",     True),
+        Region("worker_area",      "Worker Area",      True),
         Region("customer_counter", "Customer Counter", False),
         Region("customer_queue",   "Customer Queue",   False),
     ],

@@ -1,7 +1,12 @@
 """Per-track role classifier (worker / customer) using zone-based prior.
 
-For each track, count frames where the foot point sits inside any worker zone
-vs any customer zone. Majority wins; ties default to customer.
+For each track, count frames where the bbox center sits inside any worker
+zone vs any customer zone. A track is a worker only if its worker-zone
+count strictly exceeds its customer-zone count; everything else
+— including tracks that never intersected any polygon (background foot
+traffic) and tracks too short to classify — is treated as a customer.
+There is no "unknown" output: the predefined regions cover the meaningful
+frame area so the partition is total.
 """
 from __future__ import annotations
 
@@ -29,7 +34,7 @@ def classify_tracks(
     customer_zones: list[Zone],
     default_role: str | None = None,
 ) -> dict[int, dict[str, Any]]:
-    """Return {track_id: {"role": "worker"|"customer"|"unknown", ...stats}}.
+    """Return {track_id: {"role": "worker"|"customer", ...stats}}.
 
     If `default_role` is set, every track is assigned that role and zone
     geometry is ignored — for cameras that are entirely BOH or FOH.
@@ -68,8 +73,10 @@ def classify_tracks(
 
     out: dict[int, dict[str, Any]] = {}
     for tid, frames in total.items():
+        # Too-short tracks haven't accumulated enough samples to be confidently
+        # called workers — default them to customer.
         if frames < MIN_FRAMES_FOR_CLASSIFICATION:
-            role = "unknown"
+            role = "customer"
         else:
             worker_ratio = in_worker[tid] / frames
             role = "worker" if worker_ratio >= WORKER_FRAME_RATIO else "customer"

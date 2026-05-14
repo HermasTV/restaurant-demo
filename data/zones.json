@@ -1,7 +1,7 @@
 {
   "CAM-01": [
     {
-      "name": "workers_area",
+      "name": "worker_area",
       "points": [
         [
           711.1111111111111,
@@ -106,7 +106,7 @@
   ],
   "CAM-02": [
     {
-      "name": "workers_area",
+      "name": "worker_area",
       "points": [
         [
           213.33331886574172,

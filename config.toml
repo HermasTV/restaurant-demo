@@ -146,8 +146,11 @@ reenter_tolerance_s  = 1.0
 # currently inside any worker zone, count the seconds of unattended state.
 # Once the count exceeds this threshold, raise the "customer not served" flag.
 customer_not_served_threshold_s = 20.0
-# Zone-name prefixes that mark a worker zone. Anything else is a customer zone.
-worker_zone_prefixes = ["employee-", "employee_", "worker-", "worker_", "workers-", "workers_", "staff-", "staff_"]
+# Zone-name prefixes that mark a worker zone. Anything else (customer_*,
+# etc.) is treated as a customer zone. The annotation tab only offers
+# canonical names (worker_area, customer_counter, customer_queue) — see
+# app/utils/regions.py.
+worker_zone_prefixes = ["worker_"]
 # Per-camera role override. When set, every track on that camera is forced
 # to this role regardless of zones (BOH/FOH-only cameras).
 [kpis.camera_default_role]

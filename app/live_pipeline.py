@@ -21,7 +21,7 @@ from app.config import CONFIG
 from app.kpis.zones import load_camera_zones
 from app.pipeline.draw import draw_tracks
 from app.pipeline.live_kpis import LiveKpiOverlay
-from app.pipeline.model import PersonDetector
+from app.pipeline.model import BatchedPersonDetector
 from app.pipeline.tracker import make_tracker
 
 
@@ -40,7 +40,10 @@ class LivePipelineService:
         return cls._SINGLETON
 
     def __init__(self) -> None:
-        self._detector: PersonDetector | None = None
+        # One shared, batched detector — concurrent infer() calls from each
+        # camera worker are coalesced into a single GPU batch. See
+        # BatchedPersonDetector for the rationale.
+        self._detector: BatchedPersonDetector | None = None
         self._workers: dict[str, threading.Thread] = {}
         self._stop_events: dict[str, threading.Event] = {}
         # Shared, lock-protected state. The dashboard tab polls these.
@@ -67,7 +70,9 @@ class LivePipelineService:
         if cam_ids is None:
             cam_ids = [c.cam_id for c in CAMERAS]
         if self._detector is None:
-            self._detector = PersonDetector()
+            self._detector = BatchedPersonDetector(
+                max_batch_size=max(1, len(cam_ids))
+            )
         self._running = True
         for cid in cam_ids:
             cam = camera_by_id(cid)
@@ -75,7 +80,7 @@ class LivePipelineService:
             self._stop_events[cid] = stop
             t = threading.Thread(
                 target=self._worker_loop,
-                args=(cam, stop),
+                args=(cam, self._detector, stop),
                 daemon=True,
                 name=f"live-worker-{cid}",
             )
@@ -100,7 +105,8 @@ class LivePipelineService:
     # Worker
     # ------------------------------------------------------------------
 
-    def _worker_loop(self, cam, stop_event: threading.Event) -> None:
+    def _worker_loop(self, cam, detector: BatchedPersonDetector,
+                     stop_event: threading.Event) -> None:
         cap = cv2.VideoCapture(str(cam.path))
         if not cap.isOpened():
             return
@@ -132,7 +138,7 @@ class LivePipelineService:
                     t0 = time.monotonic()
                     continue
 
-                detections = self._detector.infer(frame)
+                detections = detector.infer(frame)
                 tracks = tracker.update(detections, frame)
 
                 stats: dict[str, Any] = {"frame_idx": frame_idx,

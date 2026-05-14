@@ -3,8 +3,9 @@
 For each frame, given the current tracks (already produced by the tracker),
 this module:
 
-  * decides each track's role (worker / customer / unknown) from polygon
-    membership accumulated over the track's lifetime,
+  * decides each track's role (worker / customer) from polygon
+    membership accumulated over the track's lifetime — predefined regions
+    cover the frame, so there is no "unknown" fallback,
   * keeps a per-tracklet, per-zone dwell timer,
   * runs a "customer-not-served" state machine that raises a flag when one or
     more customers are waiting and no worker is in any worker zone for more
@@ -17,9 +18,11 @@ Decision rules:
   * If `default_role` is set (e.g. CAM-04 = worker, CAM-03 = customer),
     every track gets that role unconditionally.
   * Else: per-track running counts of frames-in-worker-zone vs
-    frames-in-customer-zone. Whichever is higher wins.
-  * Special case (e.g. CAM-02): worker zones drawn but no customer zones.
-    Then *anyone NOT in a worker zone is a customer*.
+    frames-in-customer-zone. A track is a worker only if its worker-zone
+    count strictly exceeds its customer-zone count; everyone else is a
+    customer. Tracks that never intersect any polygon (e.g. background
+    foot traffic) fall through to customer by design — the predefined
+    regions cover the meaningful frame area.
 
 Coordinates use:
   * Bbox CENTER for role / zone-membership counting — handles workers whose
@@ -125,19 +128,18 @@ class LiveKpiOverlay:
     # ---------------- decision helpers ----------------
 
     def _role_for(self, tid: int) -> str:
+        # Worker only if the track has spent more frames inside a worker
+        # zone than inside customer zones. Predefined regions
+        # (worker_area + customer_counter/queue) cover the meaningful
+        # frame area, so a track that never intersected any polygon —
+        # e.g. someone passing in the background — defaults to customer
+        # rather than "unknown".
         if self.default_role is not None:
             return self.default_role
         counts = self._role_counts.get(tid, {"worker": 0, "customer": 0})
-        w, c = counts["worker"], counts["customer"]
-        if self._worker_zones and not self._customer_zones:
-            return "worker" if w > 0 else "customer"
-        if self._customer_zones and not self._worker_zones:
-            return "customer" if c > 0 else "worker"
-        if w > c:
+        if self._worker_zones and counts["worker"] > counts["customer"]:
             return "worker"
-        if c > 0:
-            return "customer"
-        return "unknown"
+        return "customer"
 
     # ---------------- main step ----------------
 
