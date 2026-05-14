@@ -1,0 +1,22 @@
+task/
+__pycache__/
+*.pyc
+.streamlit/
+.venv/
+.env
+.DS_Store
+.claude/
+
+# Pipeline outputs (regenerable)
+data/tracks/
+data/annotated/
+
+# Model weights / caches (re-downloadable or stored under data/weights/)
+*.pt
+*.ts
+*.pth
+*.pth.tar
+*.onnx
+*.engine
+data/weights/
+
