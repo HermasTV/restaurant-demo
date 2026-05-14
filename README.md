@@ -1,8 +1,8 @@
 # Restaurant CCTV Monitoring — POC
 
-<video src="https://github.com/HermasTV/restaurant-demo/raw/main/overview.webm" controls width="100%"></video>
+[![Watch the overview video](https://img.youtube.com/vi/3fO8wQVX20U/maxresdefault.jpg)](https://youtu.be/3fO8wQVX20U)
 
-> ▶ [Watch the overview video](overview.webm) (auto-plays above on GitHub; click the link otherwise).
+> ▶ [Watch the overview video on YouTube](https://youtu.be/3fO8wQVX20U)
 
 Python-only computer-vision prototype that flags operational and compliance
 KPIs on restaurant CCTV footage. Streamlit for the UI; YOLO26 + BoT-SORT
