@@ -1,0 +1,63 @@
+{
+  "cam_id": "CAM-01",
+  "tracks": {
+    "6": {
+      "age_band": "30-50",
+      "gender": "M",
+      "confidence": 0.916,
+      "n_observations": 10,
+      "first_seen_s": 0.0,
+      "last_seen_s": 7.5
+    },
+    "8": {
+      "age_band": "30-50",
+      "gender": "M",
+      "confidence": 0.892,
+      "n_observations": 10,
+      "first_seen_s": 0.0,
+      "last_seen_s": 7.5
+    },
+    "86": {
+      "age_band": "30-50",
+      "gender": "M",
+      "confidence": 0.939,
+      "n_observations": 10,
+      "first_seen_s": 171.59,
+      "last_seen_s": 220.05
+    },
+    "87": {
+      "age_band": "30-50",
+      "gender": "M",
+      "confidence": 0.938,
+      "n_observations": 10,
+      "first_seen_s": 172.49,
+      "last_seen_s": 186.28
+    },
+    "103": {
+      "age_band": "30-50",
+      "gender": "M",
+      "confidence": 0.902,
+      "n_observations": 10,
+      "first_seen_s": 203.37,
+      "last_seen_s": 238.74
+    },
+    "119": {
+      "age_band": "30-50",
+      "gender": "M",
+      "confidence": 0.92,
+      "n_observations": 10,
+      "first_seen_s": 233.75,
+      "last_seen_s": 244.74
+    }
+  },
+  "summary": {
+    "age_bands": {
+      "30-50": 6
+    },
+    "genders": {
+      "M": 6
+    },
+    "finalized": 6,
+    "pending": 17
+  }
+}

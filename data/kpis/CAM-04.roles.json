@@ -1,0 +1,180 @@
+{
+  "cam_id": "CAM-04",
+  "tracks": {
+    "1": {
+      "role": "worker",
+      "frames_total": 340,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "2": {
+      "role": "worker",
+      "frames_total": 35,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "3": {
+      "role": "worker",
+      "frames_total": 14,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "4": {
+      "role": "worker",
+      "frames_total": 79,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "5": {
+      "role": "worker",
+      "frames_total": 1,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "6": {
+      "role": "worker",
+      "frames_total": 1,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "7": {
+      "role": "worker",
+      "frames_total": 207,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "8": {
+      "role": "worker",
+      "frames_total": 87,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "9": {
+      "role": "worker",
+      "frames_total": 69,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "10": {
+      "role": "worker",
+      "frames_total": 1,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "11": {
+      "role": "worker",
+      "frames_total": 9,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "12": {
+      "role": "worker",
+      "frames_total": 1,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "13": {
+      "role": "worker",
+      "frames_total": 223,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "14": {
+      "role": "worker",
+      "frames_total": 37,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "15": {
+      "role": "worker",
+      "frames_total": 29,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "16": {
+      "role": "worker",
+      "frames_total": 5,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "17": {
+      "role": "worker",
+      "frames_total": 1,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "18": {
+      "role": "worker",
+      "frames_total": 76,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "19": {
+      "role": "worker",
+      "frames_total": 19,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "20": {
+      "role": "worker",
+      "frames_total": 1,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "21": {
+      "role": "worker",
+      "frames_total": 7,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "22": {
+      "role": "worker",
+      "frames_total": 60,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "23": {
+      "role": "worker",
+      "frames_total": 46,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "24": {
+      "role": "worker",
+      "frames_total": 2,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    },
+    "25": {
+      "role": "worker",
+      "frames_total": 9,
+      "frames_in_worker": 0,
+      "frames_in_customer": 0,
+      "source": "camera_default"
+    }
+  }
+}

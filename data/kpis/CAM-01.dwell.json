@@ -1,0 +1,122 @@
+{
+  "cam_id": "CAM-01",
+  "summary": {
+    "count": 11,
+    "mean_s": 70.51,
+    "median_s": 55.86,
+    "p95_s": 227.05,
+    "max_s": 228.65
+  },
+  "records": [
+    {
+      "track_id": 4,
+      "role": "customer",
+      "zone": "customer_counter",
+      "enter_frame": 0,
+      "exit_frame": 2288,
+      "enter_ts_s": 0.0,
+      "exit_ts_s": 228.649,
+      "duration_s": 228.65
+    },
+    {
+      "track_id": 2,
+      "role": "customer",
+      "zone": "customer_counter",
+      "enter_frame": 20,
+      "exit_frame": 2291,
+      "enter_ts_s": 1.999,
+      "exit_ts_s": 228.949,
+      "duration_s": 227.05
+    },
+    {
+      "track_id": 7,
+      "role": "customer",
+      "zone": "customer_queue",
+      "enter_frame": 75,
+      "exit_frame": 106,
+      "enter_ts_s": 7.495,
+      "exit_ts_s": 10.593,
+      "duration_s": 3.1
+    },
+    {
+      "track_id": 8,
+      "role": "customer",
+      "zone": "customer_queue",
+      "enter_frame": 81,
+      "exit_frame": 116,
+      "enter_ts_s": 8.095,
+      "exit_ts_s": 11.592,
+      "duration_s": 3.6
+    },
+    {
+      "track_id": 27,
+      "role": "customer",
+      "zone": "customer_queue",
+      "enter_frame": 1716,
+      "exit_frame": 2315,
+      "enter_ts_s": 171.487,
+      "exit_ts_s": 231.347,
+      "duration_s": 55.86
+    },
+    {
+      "track_id": 28,
+      "role": "customer",
+      "zone": "customer_queue",
+      "enter_frame": 1726,
+      "exit_frame": 2031,
+      "enter_ts_s": 172.486,
+      "exit_ts_s": 202.966,
+      "duration_s": 29.18
+    },
+    {
+      "track_id": 31,
+      "role": "customer",
+      "zone": "customer_queue",
+      "enter_frame": 2035,
+      "exit_frame": 2161,
+      "enter_ts_s": 203.366,
+      "exit_ts_s": 215.958,
+      "duration_s": 11.69
+    },
+    {
+      "track_id": 4,
+      "role": "customer",
+      "zone": "customer_queue",
+      "enter_frame": 2293,
+      "exit_frame": 2337,
+      "enter_ts_s": 229.149,
+      "exit_ts_s": 233.546,
+      "duration_s": 3.5
+    },
+    {
+      "track_id": 31,
+      "role": "customer",
+      "zone": "customer_counter",
+      "enter_frame": 2312,
+      "exit_frame": 3049,
+      "enter_ts_s": 231.048,
+      "exit_ts_s": 304.699,
+      "duration_s": 73.65
+    },
+    {
+      "track_id": 27,
+      "role": "customer",
+      "zone": "customer_counter",
+      "enter_frame": 2317,
+      "exit_frame": 3049,
+      "enter_ts_s": 231.547,
+      "exit_ts_s": 304.699,
+      "duration_s": 72.65
+    },
+    {
+      "track_id": 33,
+      "role": "customer",
+      "zone": "customer_queue",
+      "enter_frame": 2339,
+      "exit_frame": 3022,
+      "enter_ts_s": 233.746,
+      "exit_ts_s": 302.001,
+      "duration_s": 66.66
+    }
+  ]
+}

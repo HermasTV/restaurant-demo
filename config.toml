@@ -1,0 +1,155 @@
+# Restaurant CCTV POC — single source of truth.
+# All pipeline / tracker / KPI parameters live here.
+
+[pipeline]
+# Which cameras to process. Empty list = all four (CAM-01 .. CAM-04).
+cameras = []
+# Throttle workers to source FPS instead of running as-fast-as-possible.
+realtime = false
+# Burn boxes / IDs / overlays into an MP4 per camera.
+write_annotated = true
+# Render the BoT-SORT track ID next to each customer box. Workers never
+# get an id label, regardless of this flag. Set true while iterating;
+# leave false for demo runs.
+show_track_ids  = false
+
+
+[detector]
+# YOLO26 family — see https://docs.ultralytics.com/models/yolo26
+#   yolo26n.pt  2.4 M params  mAP 40.9  fastest
+#   yolo26s.pt  9.5 M         mAP 48.6
+#   yolo26m.pt  20.4 M        mAP 53.1
+#   yolo26l.pt  24.8 M        mAP 55.0   ← current, better recall on partial occlusion
+#   yolo26x.pt  55.7 M        mAP 57.5   slowest
+weights = "data/weights/yolo26l.pt"
+device  = "cuda"
+# 1280x736 is the largest multiple-of-32 box that fits 720p natively — no
+# downscaling, so far-from-camera / partially occluded people stay detectable.
+imgsz   = [1280, 736]
+# Permissive conf so partial-occlusion detections (cashier behind a customer)
+# survive into the tracker. Anything > track_low_thresh goes to second-pass
+# (motion-only) association, which keeps a stationary track alive across
+# brief partial occlusion.
+conf    = 0.15
+# IoU threshold for the explicit NMS pass on top of YOLO26's NMS-free output.
+# Tighter than typical NMS because YOLO26 still leaks torso-only + full-body
+# duplicates of the same person with IoU 0.45–0.62 at low confidence.
+iou     = 0.4
+half    = true           # FP16 on CUDA
+classes = [0]            # COCO person
+
+
+[tracker]
+# Only one backend is supported: BoT-SORT + ReID via boxmot.
+
+
+[tracker.botsort]
+# Lost-track memory. boxmot scales this internally by frame_rate / 30, so to
+# get N seconds at our 10-fps source the raw value should be N * 30.
+# 300 → ~10 s effective at 10 fps (well above the 5-s target).
+track_buffer       = 300
+# Aligned with new_track_thresh: only conf ≥ 0.4 detections enter first-pass
+# matching (where new tracks may spawn). Lower-conf detections (0.1 < conf <
+# 0.4) go to the IoU-only second-pass, where they can ONLY refresh existing
+# tracked-state tracks — never spawn a new ID. This kills the failure mode
+# where a 0.32-conf partial-occlusion detection silently creates a new track.
+track_high_thresh  = 0.4
+track_low_thresh   = 0.1
+new_track_thresh   = 0.4
+match_thresh       = 0.8
+fuse_score         = true
+cmc_method         = "ecc"   # static camera — ECC converges to near-identity warp;
+                             # avoid "sof" which over-estimates motion on busy scenes
+# boxmot kills the ReID match when iou_dist > proximity_thresh (i.e. IoU < 1 - 0.9 = 0.1).
+# Higher value = ReID gate fires for more pairs even when IoU is poor — needed
+# so a lost track can be re-acquired across long gaps where the Kalman prediction
+# has drifted away from the actual returning position.
+proximity_thresh   = 0.9
+# Max ReID cosine distance accepted as a match. Larger = more permissive.
+# OSNet x1_0 same-person distance is typically 0.1-0.5 (spikes during pose/
+# lighting drift); different-person is 0.5-0.9. 0.7 splits these cleanly:
+# tolerates same-person drift but still vetoes obvious wrong-person matches.
+appearance_thresh  = 0.7
+with_reid          = true
+# Strict appearance veto. When true, an IoU-only match cannot succeed if the
+# ReID embedding distance exceeds `appearance_thresh`. Fixes the "stationary
+# person hijacked by someone walking in front" failure mode that stock BoT-SORT
+# is vulnerable to (see app/pipeline/botsort_patched.py).
+strict_appearance_gate = true
+# Person-ReID model. Tier (size / quality, from cheapest to strongest):
+#   osnet_x0_25_msmt17.pt     ~4 MB  weakest, real-time
+#   osnet_x0_5_msmt17.pt      ~9 MB
+#   osnet_x0_75_msmt17.pt    ~13 MB
+#   osnet_x1_0_msmt17.pt     ~17 MB  full OSNet, strong default
+#   osnet_ain_x1_0_msmt17.pt ~17 MB  AIN variant, slightly stronger cross-domain
+#   clip_market1501.pt      ~150 MB  CLIP-ReID — strongest, slower
+reid_weights       = "osnet_x1_0_msmt17.pt"
+half_reid          = true   # FP16 ReID inference
+
+
+[demographics]
+# MiVOLO-D1 age + gender classifier (face + body crops). Disabled by default;
+# enable per camera by listing it in `cameras`. Best used on FOH cameras only.
+enabled                = true
+weights                = "data/weights/mivolo_imdb.pth.tar"
+detector_weights       = "data/weights/yolov8x_person_face.pt"
+device                 = "cuda"
+half                   = true
+# Cameras to run on (empty = none, no matter what `enabled` says).
+cameras                = ["CAM-01"]
+# Global stride placeholder (no longer used by the simple aggregator —
+# kept for backwards compatibility).
+every_n                = 30
+# Per-track sampling: MiVOLO runs on each track once every this many frames.
+# 10 @ 10 fps = one reading per second.
+sample_gap_frames      = 10
+# Number of matched readings needed before a track's age band + gender are
+# frozen and emitted to the sidecar JSON. With sample_gap_frames=10 and
+# this=10 a track must remain visible for at least ~100 frames (≈10 s).
+min_confident_frames   = 10
+# Ignore detections whose bbox is shorter than this many pixels — too small
+# to give a usable face/body crop for MiVOLO.
+min_bbox_height_px     = 120
+# Minimum IoU between a MiVOLO person box and a tracker box to count as a
+# match. 0.4 tolerates the slight bbox drift MiVOLO's internal YOLO has vs
+# the tracker bbox while still rejecting cross-person mixups.
+iou_match_thresh       = 0.4
+# Output age bands. MiVOLO returns an integer age; we bucket here.
+age_band_bins          = [0, 18, 30, 50, 200]
+age_band_labels        = ["<18", "18-30", "30-50", "50+"]
+
+
+[ppe]
+# PPE detector: YOLOE with cached visual-prompt embeddings (see
+# experiments/yoloe_select_prompts.py). Output classes are whatever names
+# the .pt cache was created with — typically ["glove", "hairnet"].
+enabled    = true
+weights    = "data/weights/yoloe-11s-seg.pt"
+# Path to the .pt cache produced by yoloe_select_prompts.py.
+vpe_cache  = "data/weights/yoloe_vpe_kitchen.pt"
+device     = "cuda"
+imgsz      = 1280
+conf       = 0.10
+half       = false
+# Sample every Nth frame (10 fps source / 2 → 5 fps detector).
+every_n    = 2
+# Cameras to apply the PPE pass to. CAM-01 is gated to worker zones;
+# CAM-04 has default_role=worker so the whole frame counts.
+cameras    = ["CAM-01", "CAM-04"]
+
+
+[kpis]
+min_dwell_s          = 3.0
+reenter_tolerance_s  = 1.0
+# Customer-not-served: when ≥1 customer is in a customer area (or, on cameras
+# with worker zones only, anywhere outside the worker zone) AND no worker is
+# currently inside any worker zone, count the seconds of unattended state.
+# Once the count exceeds this threshold, raise the "customer not served" flag.
+customer_not_served_threshold_s = 20.0
+# Zone-name prefixes that mark a worker zone. Anything else is a customer zone.
+worker_zone_prefixes = ["employee-", "employee_", "worker-", "worker_", "workers-", "workers_", "staff-", "staff_"]
+# Per-camera role override. When set, every track on that camera is forced
+# to this role regardless of zones (BOH/FOH-only cameras).
+[kpis.camera_default_role]
+CAM-03 = "customer"
+CAM-04 = "worker"
